@@ -127,6 +127,57 @@ function xmldb_local_bibliography2_upgrade($oldversion) {
     	// Bibliography2 savepoint reached.
     	upgrade_plugin_savepoint(true, 2015051922, 'local', 'bibliography2');
     }
+    
+    if ($oldversion < 2015052800) {
+    
+    	// Define table subjects to be created.
+    	$table = new xmldb_table('subjects');
+    
+    	// Adding fields to table subjects.
+    	$table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+    	$table->add_field('subjects', XMLDB_TYPE_CHAR, '1000', null, XMLDB_NOTNULL, null, null);
+    
+    	// Adding keys to table subjects.
+    	$table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+    
+    	// Conditionally launch create table for subjects.
+    	if (!$dbman->table_exists($table)) {
+    		$dbman->create_table($table);
+    	}
+    
+    	// Bibliography2 savepoint reached.
+    	upgrade_plugin_savepoint(true, 2015052800, 'local', 'bibliography2');
+    }
+    
+    if ($oldversion < 2015052801) {
+    
+    	// Define field subject_id to be added to local_bibliography.
+    	$table = new xmldb_table('local_bibliography');
+    	$field = new xmldb_field('subject_id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null, 'identificador_registro');
+    
+    	// Conditionally launch add field subject_id.
+    	if (!$dbman->field_exists($table, $field)) {
+    		$dbman->add_field($table, $field);
+    	}
+    
+    	// Bibliography2 savepoint reached.
+    	upgrade_plugin_savepoint(true, 2015052801, 'local', 'bibliography2');
+    }
+    
+    if ($oldversion < 2015053001) {
+    
+    	// Define field link to be added to local_bibliography.
+    	$table = new xmldb_table('local_bibliography');
+    	$field = new xmldb_field('link', XMLDB_TYPE_CHAR, '1000', null, XMLDB_NOTNULL, null, null, 'subject_id');
+    
+    	// Conditionally launch add field link.
+    	if (!$dbman->field_exists($table, $field)) {
+    		$dbman->add_field($table, $field);
+    	}
+    
+    	// Bibliography2 savepoint reached.
+    	upgrade_plugin_savepoint(true, 2015053001, 'local', 'bibliography2');
+    }
 	return true;
 }
     

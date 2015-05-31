@@ -66,6 +66,7 @@ if($action == 'add_book'){
 	if(!$fromform){
 		$mform->set_data($mform);
 		$mform->display();
+		echo $OUTPUT->single_button($urlBack , 'Back');
 	}else{
 		$table = tables::getBibliography($courseid, $bookValue, $addBookTrue);
 		echo html_writer::table($table);
@@ -83,6 +84,7 @@ if($action == 'delete_book'){
 	$action = 'view_table';
 }  	  
 
+
 if($action == 'view_table'){
 		$title = "Bibliography";
 		$title2 = "Course Books";
@@ -98,3 +100,6 @@ if($action == 'view_table'){
 
 
 echo $OUTPUT->footer();
+?>
+<script type="text/javascript" src="scripts/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="scripts/select_filter.js"></script>

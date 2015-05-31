@@ -29,4 +29,4 @@
 defined('MOODLE_INTERNAL') || die();
 $plugin->pluginname = "local_bibliography2";
 $plugin->component = 'local_bibliography2';
-$plugin->version   = '2015051922';
+$plugin->version   = '2015053001';
